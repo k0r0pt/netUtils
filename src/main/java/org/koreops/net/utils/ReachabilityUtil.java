@@ -15,15 +15,15 @@ public class ReachabilityUtil {
   private static final Logger logger = Logger.getLogger(ReachabilityUtil.class.getName());
 
   static {
-    String osName = System.getProperty("os.name");
-    if (osName.contains("Win") || osName.contains("win")) {
+    String osName = System.getProperty("os.name").toLowerCase();
+    if (osName.contains("win")) {
       // It's windows.
       numPacketsOption = "-n 1";
       timeoutOption = "-t 3";
-    } else if (osName.contains("nux") || osName.contains("nix") || osName.contains("aix")) {
+    } else if (osName.contains("nux") || osName.contains("bsd") || osName.contains("sunos") || osName.contains("nix") || osName.contains("aix")) {
       numPacketsOption = "-c 1";
       timeoutOption = "-W 3";
-    } else if (osName.contains("Mac") || osName.contains("mac")) {
+    } else if (osName.contains("mac")) {
       numPacketsOption = "-c 1";
       timeoutOption = "-t 3";
     } else {
