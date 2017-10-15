@@ -16,6 +16,8 @@ public class ReachabilityUtil {
 
   static {
     String osName = System.getProperty("os.name").toLowerCase();
+    // Printing OS name to debug Travis CI issue.
+    System.out.println("OS Name: " + osName);
     if (osName.contains("win")) {
       // It's windows.
       numPacketsOption = "-n 1";
