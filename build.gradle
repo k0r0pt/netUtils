@@ -1,0 +1,12 @@
+group 'org.k0r0pt'
+version '1.0-SNAPSHOT'
+
+apply from: 'build_config/tasks.gradle'
+apply from: 'dependencies.gradle'
+
+dependencies {
+    compile 'org.json:json:' + libraryVersions.json
+    compile 'org.jsoup:jsoup:' + libraryVersions.jsoup
+    compile 'net.sourceforge.htmlunit:htmlunit:' + libraryVersions.htmlunit
+    testCompile 'junit:junit:' + libraryVersions.junit
+}
