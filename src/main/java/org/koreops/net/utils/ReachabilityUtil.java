@@ -47,7 +47,6 @@ public class ReachabilityUtil {
     try {
       System.out.println("Executing command: " + command);
       Process p1 = Runtime.getRuntime().exec(command);
-      Thread.sleep(1000);
       int returnVal = p1.waitFor();
       reachable = (returnVal == 0);
     } catch (IOException | InterruptedException ex) {
@@ -68,7 +67,6 @@ public class ReachabilityUtil {
     try {
       System.out.println("Executing command: " + command);
       Process p1 = Runtime.getRuntime().exec(command);
-      Thread.sleep(1000);
       int returnVal = p1.waitFor();
       reachable = (returnVal == 0);
     } catch (IOException | InterruptedException ex) {
