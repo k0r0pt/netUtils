@@ -48,6 +48,7 @@ public class ReachabilityUtil {
       System.out.println("Executing command: " + command);
       Process p1 = Runtime.getRuntime().exec(command);
       int returnVal = p1.waitFor();
+      System.out.println("Exit code: " + returnVal);
       reachable = (returnVal == 0);
     } catch (IOException | InterruptedException ex) {
       logger.log(Level.SEVERE, null, ex);
@@ -68,6 +69,7 @@ public class ReachabilityUtil {
       System.out.println("Executing command: " + command);
       Process p1 = Runtime.getRuntime().exec(command);
       int returnVal = p1.waitFor();
+      System.out.println("Exit code: " + returnVal);
       reachable = (returnVal == 0);
     } catch (IOException | InterruptedException ex) {
       logger.log(Level.SEVERE, null, ex);
