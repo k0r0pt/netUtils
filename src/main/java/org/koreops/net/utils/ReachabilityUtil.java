@@ -1,6 +1,8 @@
 package org.koreops.net.utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,9 +68,24 @@ public class ReachabilityUtil {
     boolean reachable = false;
     String command = "ping " + numPacketsOption + " " + timeoutOption + " " + host;
     try {
+
+      ProcessBuilder processBuilder = new ProcessBuilder("ping", numPacketsOption, timeoutOption, host);
+
+      //From the DOC:  Initially, this property is false, meaning that the
+      //standard output and error output of a subprocess are sent to two
+      //separate streams
+      processBuilder.redirectErrorStream(true);
       System.out.println("Executing command: " + command);
-      Process p1 = Runtime.getRuntime().exec(command);
-      int returnVal = p1.waitFor();
+      Process process = processBuilder.start();
+
+      BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+      String line;
+      while ((line = in.readLine()) != null) {
+        System.out.println(line);
+      }
+
+      // Process p1 = Runtime.getRuntime().exec(command);
+      int returnVal = process.waitFor();
       System.out.println("Exit code: " + returnVal);
       reachable = (returnVal == 0);
     } catch (IOException | InterruptedException ex) {
