@@ -45,7 +45,7 @@ public class ReachabilityUtil {
     boolean reachable = false;
     String command = "ping " + numPacketsOption + " " + timeoutOption + " www.google.com";
     try {
-      // System.out.println("Executing command: " + command);
+      System.out.println("Executing command: " + command);
       Process p1 = Runtime.getRuntime().exec(command);
       Thread.sleep(1000);
       int returnVal = p1.waitFor();
@@ -66,7 +66,7 @@ public class ReachabilityUtil {
     boolean reachable = false;
     String command = "ping " + numPacketsOption + " " + timeoutOption + " " + host;
     try {
-      // System.out.println("Executing command: " + command);
+      System.out.println("Executing command: " + command);
       Process p1 = Runtime.getRuntime().exec(command);
       Thread.sleep(1000);
       int returnVal = p1.waitFor();
