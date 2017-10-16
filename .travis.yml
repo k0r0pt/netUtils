@@ -1,4 +1,6 @@
 language: java
+# Needed for ping to work in the test cases.
+sudo: true
 jdk:
   - oraclejdk8
 os:

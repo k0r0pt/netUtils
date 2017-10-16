@@ -15,15 +15,17 @@ public class ReachabilityUtil {
   private static final Logger logger = Logger.getLogger(ReachabilityUtil.class.getName());
 
   static {
-    String osName = System.getProperty("os.name");
-    if (osName.contains("Win") || osName.contains("win")) {
+    String osName = System.getProperty("os.name").toLowerCase();
+    // Printing OS name to debug Travis CI issue.
+    System.out.println("OS Name: " + osName);
+    if (osName.contains("win")) {
       // It's windows.
       numPacketsOption = "-n 1";
       timeoutOption = "-t 3";
-    } else if (osName.contains("nux") || osName.contains("nix") || osName.contains("aix")) {
+    } else if (osName.contains("nux") || osName.contains("bsd") || osName.contains("sunos") || osName.contains("nix") || osName.contains("aix")) {
       numPacketsOption = "-c 1";
       timeoutOption = "-W 3";
-    } else if (osName.contains("Mac") || osName.contains("mac")) {
+    } else if (osName.contains("mac")) {
       numPacketsOption = "-c 1";
       timeoutOption = "-t 3";
     } else {
@@ -43,9 +45,7 @@ public class ReachabilityUtil {
     boolean reachable = false;
     String command = "ping " + numPacketsOption + " " + timeoutOption + " www.google.com";
     try {
-      // System.out.println("Executing command: " + command);
       Process p1 = Runtime.getRuntime().exec(command);
-      Thread.sleep(1000);
       int returnVal = p1.waitFor();
       reachable = (returnVal == 0);
     } catch (IOException | InterruptedException ex) {
@@ -64,15 +64,12 @@ public class ReachabilityUtil {
     boolean reachable = false;
     String command = "ping " + numPacketsOption + " " + timeoutOption + " " + host;
     try {
-      // System.out.println("Executing command: " + command);
       Process p1 = Runtime.getRuntime().exec(command);
-      Thread.sleep(1000);
       int returnVal = p1.waitFor();
       reachable = (returnVal == 0);
     } catch (IOException | InterruptedException ex) {
       logger.log(Level.SEVERE, null, ex);
     }
-    System.out.println(host + ": Reachable: " + reachable);
     return reachable;
   }
 }
