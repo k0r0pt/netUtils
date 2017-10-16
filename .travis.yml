@@ -1,8 +1,10 @@
 language: java
+sudo: true
 jdk:
   - oraclejdk8
 os:
   - linux
+  - osx
 # Handle git submodules on our own.
 git:
   submodules: false
