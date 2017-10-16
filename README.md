@@ -9,4 +9,4 @@ A library of various classes pertaining to network, for use in Project Tauro.
 
 ## License
 
-Some classes haven been taken from another repository and those files list their licence terms. Every other homegrown class is licenced under the [GNU GPL v3](LICENCE.md).
+Some classes haven been taken from another repository and those files list their licence terms. Every other homegrown class is licenced under the [GNU GPL v3](LICENCE).
