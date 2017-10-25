@@ -1,0 +1,34 @@
+{
+  "package": {
+    "name": "netutils",
+    "repo": "maven",
+    "subject": "sudiptosarkar",
+    "desc": "network utilities related to Project Tauro",
+    "website_url": "https://github.com/k0r0pt/Project-Tauro",
+    "issue_tracker_url": "https://github.com/k0r0pt/netUtils/issues",
+    "vcs_url": "https://github.com/k0r0pt/netUtils.git",
+    "licenses": [
+      "GPL-3.0"
+    ],
+    "labels": [
+      "java",
+      "bintray",
+      "gradle",
+      "k0r0pt"
+    ],
+    "public_download_numbers": false,
+    "public_stats": false
+  },
+  "version": {
+    "name": "1.0.0",
+    "released": "2017-10-25",
+    "gpgSign": false
+  },
+  "files": [
+    {
+      "includePattern": "build/libs/(.*)",
+      "uploadPattern": "org/k0r0pt/netutils/1.0.0/$1"
+    }
+  ],
+  "publish": true
+}
