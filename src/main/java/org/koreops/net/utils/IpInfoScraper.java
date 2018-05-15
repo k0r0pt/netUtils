@@ -19,7 +19,6 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import org.jsoup.Jsoup;
@@ -29,6 +28,8 @@ import org.jsoup.select.Elements;
 import org.koreops.net.exceptions.NetException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,33 +62,22 @@ public class IpInfoScraper {
    * @return Array of String IP addresses
    */
   public String[] getNetRanges() throws NetException {
-    String[] args;
-    int netSize = 0;
-    final String sizeKeyword = "Show all ";
+    List<String> args;
     try {
       HtmlPage page = webClient.getPage(host + netId);
-      for (HtmlAnchor anchor : page.getAnchors()) {
-        String anchorText = anchor.getTextContent();
-        if (anchorText.contains(sizeKeyword)) {
-          anchorText = anchorText.substring(anchorText.indexOf(sizeKeyword) + sizeKeyword.length(), anchorText.length());
-          netSize = Integer.valueOf(anchorText.substring(0, anchorText.indexOf(" ")));
-        }
-      }
-      //page.getAnchorByName("Show all " + netSize + " IP address blocks").click();
       Document doc = Jsoup.parse(page.asXml());
-      Elements es = doc.select("table#block-table tr td a");
-      int i = 0;
-      args = new String[netSize + 1];
+      Elements es = doc.select("table#block-table tbody tr td a");
+      args = new ArrayList<>();
       for (Element e : es) {
         if (e.attr("href").contains(netId)) {
-          args[i] = e.text();
-          i++;
+          args.add(e.text());
         }
       }
+      System.out.println(args);
     } catch (IOException | FailingHttpStatusCodeException | ElementNotFoundException e) {
       logger.log(Level.SEVERE, "Invalid netId", e);
       throw new NetException("Invalid netId: " + e.getMessage());
     }
-    return args;
+    return args.toArray(new String[args.size()]);
   }
 }
