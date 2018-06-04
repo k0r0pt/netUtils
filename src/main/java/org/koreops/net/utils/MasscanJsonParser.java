@@ -15,6 +15,7 @@
 
 package org.koreops.net.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -49,7 +50,7 @@ public interface MasscanJsonParser {
     String line;
     JSONObject portObj;
     while ((line = fileReader.readLine()) != null) {
-      if (!line.startsWith("{finished")) {
+      if (!line.startsWith("{finished") && StringUtils.isNotEmpty(line) && !"[".equals(line) && !"]".equals(line)) {
         JSONObject object = new JSONObject(line);
         portObj = (JSONObject) object.getJSONArray("ports").get(0);
         if (((portObj.has("port")) && (portNum == portObj.getInt("port")))
