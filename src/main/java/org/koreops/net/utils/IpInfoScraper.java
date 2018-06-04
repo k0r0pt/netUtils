@@ -21,6 +21,7 @@ import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -73,11 +74,29 @@ public class IpInfoScraper {
           args.add(e.text());
         }
       }
-      System.out.println(args);
     } catch (IOException | FailingHttpStatusCodeException | ElementNotFoundException e) {
       logger.log(Level.SEVERE, "Invalid netId", e);
       throw new NetException("Invalid netId: " + e.getMessage());
     }
     return args.toArray(new String[args.size()]);
+  }
+
+  /**
+   * Prints masscan command for specified netId, which can be copied and run to get all hosts with ports 80 and 8080 in listen state.
+   * @param isp           The isp that is being scanned. If empty, the value `Scan` will be used. This is for the output Json file.
+   * @throws NetException In case of any exception related to the scrape.
+   */
+  public void printMasscanCommand(String isp) throws NetException {
+    if (StringUtils.isEmpty(isp)) {
+      isp = "Scan";
+    }
+    StringBuilder ms = new StringBuilder("\n\n\nmasscan -p80,8080 --rate 1000000 --banners  -oJ " + isp + ".json ");
+    String[] netRanges = this.getNetRanges();
+
+    for (String ip : netRanges) {
+      ms.append(ip).append(" ");
+    }
+
+    System.out.println(ms.toString());
   }
 }
