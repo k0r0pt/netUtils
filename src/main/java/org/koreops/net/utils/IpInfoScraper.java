@@ -90,7 +90,7 @@ public class IpInfoScraper {
     if (StringUtils.isEmpty(isp)) {
       isp = "Scan";
     }
-    StringBuilder ms = new StringBuilder("\n\n\nmasscan -p80,8080 --rate 1000000 --banners  -oJ " + isp + ".json ");
+    StringBuilder ms = new StringBuilder("\n\n\nmasscan -p80,8080 --rate 1000000 --banners --wait 60 -oJ " + isp + ".json ");
     String[] netRanges = this.getNetRanges();
 
     for (String ip : netRanges) {
